@@ -1,5 +1,8 @@
 package cn.andios;
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
 /**
  * 88 75 215
  * @author LSD
@@ -10,12 +13,44 @@ package cn.andios;
 public class Test215 {
 
 	/**
-	 * 非空判断
-	 * 
-	 * 时间复杂度 ？？？？？
-	 * 更优解 ？？？？？
+	 * 	优先级队列api
+	 *	Time Complexity：O(nlgk)
+	 *	Space Complexity：O(k)
 	 */
-    public static int findKthLargest(int[] nums, int k) {
+	public static int findKthLargest3(int[] nums, int k) {
+		 final PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+		    for(int val : nums) {
+		    	//所有元素插入到队列中
+		    	priorityQueue.offer(val);
+		        if(priorityQueue.size() > k) {
+		        	//头元素出队
+		        	priorityQueue.poll();
+		        }
+		    }
+		    //返回头元素
+		    return priorityQueue.peek();
+	}
+
+	/**
+	 * 	非空判断,k是否合法判断...
+	 * 
+	 * 	Space Complexity：O(nlgn)  
+	 * 	Space Complexity：O(1)
+	 */
+	public static int findKthLargest2(int[] nums, int k) {
+		//排序，直接返回
+		int N = nums.length;
+        Arrays.sort(nums);
+        return nums[N - k];
+	}
+	
+	/**
+	 *	 非空判断,k是否合法判断...
+	 * 
+	 *	 Space Complexity：O(n)
+	 *	 Space Complexity：O(1)
+	 */
+    public static int findKthLargest1(int[] nums, int k) {
     	if(nums == null || nums.length == 0 || nums.length < k) {
     		return 0;
     	}
@@ -64,24 +99,6 @@ public class Test215 {
         	else{
         		return partition(nums, start, left - 1, k-temp);
             }
-        	
-        	
-        	
-//        	//此时left与right重合，nums[left]表示的是第 left-start+1大的数(应该是第第 left-start+1大，而不是大)
-//        	int temp = left - start + 1;
-//        	if(k == temp) {
-//        		return nums[left];
-//        	}
-//        	//要找的数在左边，比如left=4,若start=0，则temp=5,left的index为4，表示第5大的数
-//        	//若k=2，即在0-3上面找第2大的数
-//        	else if(k < temp) {
-//        		return partition(nums, start, left - 1, k);
-//        	}
-//        	//要找的数在右边，比如left=4,若start=0，则temp=5,left的index为4，表示第5大的数
-//        	//若k=7，end=100,即在5-100上面找第2大的数即可
-//        	else {
-//        		return partition(nums, left + 1, end, k-temp);
-//        	}
     	}else {
     		return pivot;
     	}
@@ -94,7 +111,9 @@ public class Test215 {
 	}
 	public static void main(String[] args) {
     	int [] nums = {3,2,1,5,6,4};
-    	int e = findKthLargest(nums, 2 );
+    	//int e = findKthLargest1(nums, 2 );
+    	//int e = findKthLargest2(nums, 2 );
+    	int e = findKthLargest3(nums, 2 );
     	System.out.println("e：" + e);
 	}
 }
