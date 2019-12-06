@@ -19,6 +19,8 @@ public class Test18 {
 	 * 	时要i,j,lo,hi都要移动，但要排除几个特殊情况：i=0，j=i+1
 	 * 	因为，如果i=0不排除，nums[i-1]就会越界
 	 * 	如果j=i+1不排除，就会漏掉
+	 * 
+	 * 	41ms，还有需要优化的地方：
 	 */
     public static List<List<Integer>> fourSum(int[] nums, int target) {
     	List<List<Integer>> res = new ArrayList<>();
@@ -28,7 +30,12 @@ public class Test18 {
         Arrays.sort(nums);
         for (int i = 0; i < nums.length-3; i++) {
         	if(i ==0 || nums[i] != nums[i-1]) {
-        		for (int j = i+1; j < nums.length-2; j++) {	
+        		//	优化1：
+        		//	max = nums[i]+nums[nums.length-1]+nums[nums.length-2]+nums[nums.length-3]
+        		//	min = nums[i]+nums[i+1]+nums[i+2]nums[i+3]
+        		//	如果max<target||min>target，直接跳出;
+        		for (int j = i+1; j < nums.length-2; j++) {
+            		// 	优化2(类似优化1)
         			if(j == i+1 || nums[j] != nums[j-1]) {
         				int lo = j+1,hi = nums.length-1;
         				while(lo <hi) {
