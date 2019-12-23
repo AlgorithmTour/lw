@@ -41,6 +41,25 @@ public class Test205 {
 		return true;
 	        
 	}
+	// 方法二： 使用索引
+	public  static boolean isIsomorphic2(String s, String t) {
+		char[] sh = s.toCharArray();
+		char[] th = t.toCharArray();
+		// 如果长度不一样 返回false
+		if(sh.length != th.length) {
+			return false;
+		}
+		// 如果两个字符串中的每一个字符的索引都相等的话就是true，否则就是false
+		for(int i = 0;i<sh.length;i++) {
+			if(s.indexOf(sh[i]) != t.indexOf(th[i])) {
+				return false;
+			}
+		}
+		
+		return true;
+		
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			String s = "a";
