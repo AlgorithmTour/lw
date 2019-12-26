@@ -1,13 +1,11 @@
 package cn.andios;
 
-import javax.sound.sampled.ReverbType;
-
 /**
  * @Author: lsd
  * @Description: 206
  * @Date: 2019/12/21 上午9:38
  */
-public class Test206 {
+public class  Test206 {
     /**
      * 方法二
      * @param head
@@ -15,8 +13,9 @@ public class Test206 {
      */
     public static ListNode reverseList2(ListNode head) {
         ListNode newHead = null;
+        ListNode next = null;
         while (head != null) {
-            ListNode next = head.next;
+            next = head.next;
             head.next = newHead;
             newHead = head;
             head = next;
@@ -40,9 +39,9 @@ public class Test206 {
          *      此时链表变为 null<-a b->c->d->e->f, pre,cur,next分别指向null,a,b
          * 第二步：pre,cur,next分别后移一位,pre指向null变为p指向a,cur指向a变为cur指向b,
          *      注意,cur！=null才会进入循环,而next指向cur的后一位,此时cur往后移了一位,
-         *      但next不能往后移,因为next此时可能指向null,如果next后移,可能发生空指针，
+         *      但next不能往后移,因为next此时可能已经指向null,如果next后移,可能发生空指针，
          *      必须在下一次循环时才能后移next
-         * 循环第二步,一直到cur指向null,此时pre指向最后一位f,所以最终返回f
+         * 循环第二步,一直到cur指向null,此时pre指向最后一位f,所以最终返回pre
          *
          */
         ListNode pre = null;
@@ -70,19 +69,20 @@ public class Test206 {
     		tail.next = newNode;
 		    tail = newNode;
     	}
-//        10 11 12 13 14
-//        while(head.next != null) {
-//            head = head.next;
+
+        //0	10	11	12	13	14
+//        while(head != null) {
 //            System.out.print(head.val+"\t");
+//            head = head.next;
 //        }
 
-//      13	12	11	10	0
-    	//ListNode reverseList = reverseList1(head);
-    	ListNode reverseList = reverseList2(head);
+//      14	13	12	11	10	0
+    	ListNode reverseList = reverseList1(head);
+    	//ListNode reverseList = reverseList2(head);
         //打印反转后的结果
-    	while(reverseList.next != null) {
+    	while(reverseList != null) {
+            System.out.print(reverseList.val+"\t");
             reverseList = reverseList.next;
-    		System.out.print(reverseList.val+"\t");
     	}
     }
 }

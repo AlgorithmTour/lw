@@ -7,10 +7,12 @@ package cn.andios;
  */
 public class Test92 {
     public static ListNode2 reverseBetween(ListNode2 head, int m, int n) {
-
+        //声明一个头结点(是head之外的节点)
+        ListNode2 res = new ListNode2(Integer.MAX_VALUE);
+        res.next = head;
         //1.找到待反转节点的前一个节点
         //  比如链表为1->2->3->4->5.反转2-4,,就找到1
-        ListNode2 node = head;
+        ListNode2 node = res;
         for (int i = 1; i < m; i++) {
             node = node.next;
         }
@@ -47,30 +49,41 @@ public class Test92 {
         //4.将第1步找到的节点指向反转后的头节点
         //  第3步后得到链表1 5<-2<-3<-4,这一步将1的next指向4,即链表变为5<-2<-3<-4<-1,即1->4->3->2->5
         node.next = pre;
-        return head;
+        //这里是返回res.next,不是head
+        return res.next;
     }
     public static void main(String[] args) {
         //生成链表
-        ListNode2 head = new ListNode2(0);
+//        ListNode2 head = new ListNode2(0);
+//        ListNode2 tail = null;
+//        tail = head;
+//        ListNode2 newNode = null;
+//        for (int i = 10; i < 15; i++) {
+//            newNode = new ListNode2(i);
+//            tail.next = newNode;
+//            tail = newNode;
+//        }
+        ListNode2 head = new ListNode2(3);
         ListNode2 tail = null;
         tail = head;
         ListNode2 newNode = null;
-        for (int i = 10; i < 15; i++) {
+        for (int i = 5; i < 6; i++) {
             newNode = new ListNode2(i);
             tail.next = newNode;
             tail = newNode;
         }
-        //10    11	12	13	14
-//        while(head.next != null) {
-//            head = head.next;
+//        //打印结果：0	10	11	12	13	14
+//        while(head != null) {
 //            System.out.print(head.val+"\t");
+//            head = head.next;
 //        }
 
-        ListNode2 listNode = reverseBetween(head, 2, 4);
+//        ListNode2 listNode = reverseBetween(head, 2, 4);
+        ListNode2 listNode = reverseBetween(head, 1, 2);
 
-        while (listNode.next != null){
+        while (listNode != null){
+            System.out.print(listNode.val+"\t");
             listNode = listNode.next;
-            System.out.println(listNode.val);
         }
     }
 }
