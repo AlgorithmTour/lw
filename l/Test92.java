@@ -54,32 +54,23 @@ public class Test92 {
     }
     public static void main(String[] args) {
         //生成链表
-//        ListNode2 head = new ListNode2(0);
-//        ListNode2 tail = null;
-//        tail = head;
-//        ListNode2 newNode = null;
-//        for (int i = 10; i < 15; i++) {
-//            newNode = new ListNode2(i);
-//            tail.next = newNode;
-//            tail = newNode;
-//        }
-        ListNode2 head = new ListNode2(3);
+        ListNode2 head = new ListNode2(0);
         ListNode2 tail = null;
         tail = head;
         ListNode2 newNode = null;
-        for (int i = 5; i < 6; i++) {
+        for (int i = 10; i < 15; i++) {
             newNode = new ListNode2(i);
             tail.next = newNode;
             tail = newNode;
         }
+
 //        //打印结果：0	10	11	12	13	14
 //        while(head != null) {
 //            System.out.print(head.val+"\t");
 //            head = head.next;
 //        }
 
-//        ListNode2 listNode = reverseBetween(head, 2, 4);
-        ListNode2 listNode = reverseBetween(head, 1, 2);
+        ListNode2 listNode = reverseBetween(head, 2, 4);
 
         while (listNode != null){
             System.out.print(listNode.val+"\t");
