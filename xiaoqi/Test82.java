@@ -36,7 +36,8 @@ public class Test82 {
 			}
 			System.out.print("NULL");
 		}
-	public static ListNode deleteDuplicates(ListNode head) {
+	// 方法一：
+		public static ListNode deleteDuplicates(ListNode head) {
 		ListNode newhead = new ListNode(0);// 构建哑结点
 		newhead.next = head; // 给原链表加一个哑结点
 		ListNode cur = newhead; // 将cur赋给哑结点
@@ -54,12 +55,44 @@ public class Test82 {
 			
 		}
 		return  newhead.next;
+		}
+	// 方法二
+	public static ListNode deleteDuplicates2(ListNode head) {
+		ListNode newHead = new ListNode(0); // 构建哑结点
+		newHead.next = head;
+		ListNode pre = newHead;
+		ListNode cur = head;
+		Boolean flag = false; // 建立哑结点
+		while(cur!=null && cur.next!=null) {
+			if(cur.val == cur.next.val) {
+				cur.next = cur.next.next;
+				flag = true;// 有重复的将flag设置为true，方便后面删除当前的cur
+			}else {
+				if(flag) {
+					// 如果前面有重复的，则要删除当前的cur
+					pre.next = cur.next;
+					cur = cur.next;
+					// 删除当前的cur之后要将flag设置为false
+					flag = false;
+				}else {
+					// 如果没有重复的，pre与cur都向后移位
+					pre = cur;
+					cur = cur.next;
+				}
+			}
+		}
+		// 防止尾重复 再判断一次
+		if(flag) {
+			pre.next = cur.next;
+			cur = cur.next;
+		}
+		return newHead.next;
 
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] arr = {1,1,1,2,2};
-		ListNode head = create(arr, 5);
+		int[] arr = {1,1,2,2};
+		ListNode head = create(arr, 4);
 		ListNode newHead =  deleteDuplicates(head);
 		printList(newHead);
 	}
