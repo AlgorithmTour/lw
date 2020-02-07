@@ -12,10 +12,10 @@ import java.util.List;
 public class Test104 {
     public static void main(String[] args) {
         //创建树
-        BinTree binTree = new BinTree();
+        BinTree1 binTree = new BinTree1();
         //节点数据
-        Integer [] arr = new Integer[]{3,9,20,1,1,15,7};
-        List<TreeNode1> list = new ArrayList();
+        Integer [] arr = new Integer[]{3,9,20,null,null,15,7};
+        List<TreeNode1> list = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
             list.add(new TreeNode1(arr[i]));
         }
@@ -30,13 +30,17 @@ public class Test104 {
             }
         }
         //构建二叉树
-        binTree.setTreeNode1(list.get(0));
-        
+        binTree.setTreeNode(list.get(0));
 
+        int x = maxDepth(list.get(0));
+        System.out.println("最大深度："+x);
+        
+        System.out.println("前序遍历:");
+        binTree.preOrder();
         
     }
-
-    public  int maxDepth(TreeNode1 root) {
+    //求最大深度
+    public static int maxDepth(TreeNode1 root) {
         
         if(root == null){
             return 0;
@@ -48,10 +52,11 @@ public class Test104 {
 
 }
 class TreeNode1 {
-     int val;
-     TreeNode1 left;
-     TreeNode1 right;
-     TreeNode1(int x) { val = x; }
+    Integer val;
+    TreeNode1 left;
+    TreeNode1 right;
+    
+     TreeNode1(Integer x) { val = x; }
 
     public int getVal() {
         return val;
@@ -86,7 +91,7 @@ class TreeNode1 {
 
     //前序
     public void preOrder(){
-        System.out.println(this.val);
+        System.out.print(this.val + "\t");
         if(this.left != null){
             this.left.preOrder();
         }
@@ -100,7 +105,7 @@ class TreeNode1 {
         if(this.left != null){
             this.left.inOrder();
         }
-        System.out.println(this.val);
+        System.out.print(this.val + "\t");
         if(this.right != null){
             this.right.inOrder();
         }
@@ -114,13 +119,13 @@ class TreeNode1 {
         if(this.right != null){
             this.right.postOrder();
         }
-        System.out.println(this.val);
+        System.out.print(this.val + "\t");
     }
 }
 
-class BinTree{
+class BinTree1{
     private TreeNode1 root;
-    public void setTreeNode1(TreeNode1 root){
+    public void setTreeNode(TreeNode1 root){
         this.root = root;
     }
     //前序
