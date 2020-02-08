@@ -18,6 +18,8 @@ public class Test226 {
         for (Integer i : arr) {
             if(i != null){
                 datas.add(new TreeNode3(i));
+            }else{
+                datas.add(null);
             }
         }
         //构建树
