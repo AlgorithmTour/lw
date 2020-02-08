@@ -26,24 +26,60 @@ public class Test144 {
 	}
 	
 	// 方法二：使用栈
-	public void helper2(TreeNode root, List<Integer> res) {
+	public List<Integer> preorderTraversal2(TreeNode root) {
+		List<Integer> res = new ArrayList<>();
+		Stack<TreeNode> stack = new Stack();
+		
 		if(root == null) {
-			return;
+			return res ;
 		}
 		
-	}
-	
-	public List<Integer> preorderTraversal2(TreeNode root) {
-		if(root == null) {
-			return null;
+		stack.push(root);
+		while(!stack.empty()) {
+			TreeNode type = stack.pop();
+			if(type.right != null) {
+				stack.push(type.right);
+			}
+			if(type.left != null) {
+				stack.push(type.left);
+			}
+			res.add(type.val);
 		}
-		List<Integer> res = new ArrayList<>();
-		Stack stack = new Stack();
-		while()
 		return res;
 	}
 	
-	
+	 // 方法三 ： 使用栈的优化解法
+	public List<Integer> preorderTraversal3(TreeNode root) {
+		
+		List<Integer> res = new ArrayList<>();
+		Stack<Command> stack = new Stack<Command>();
+		if(root == null) {
+			return res ;
+		}
+		Command command = new Command("visit", root);
+		stack.push(command);
+		while(!stack.empty()) {
+			Command type = stack.pop();
+			if(type.s == "print") { // 如果其s是"print", 就将其加入到输出数组res中
+				res.add(type.node.val);
+			}else {
+				if(type.node.right != null) {
+					Command typeRight = new Command("visit", type.node.right);
+					stack.push( typeRight);
+				}
+				if(type.node.left != null) {
+					Command typeLeft = new Command("visit", type.node.left);
+					stack.push( typeLeft);
+				}
+				type.s = "print"; // 如果左右孩子都访问完，就将其s置为"print"
+				stack.push(type);
+			}
+		}
+		
+		return res;
+	}
+	 
+	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
